@@ -7,11 +7,12 @@ import {colors} from '../constants/colors';
 export const CategoriesScreen = (props) => {
     const renderGridItem = (itemData) => {
         return (
-            <TouchableOpacity style={styles.gridItem} onPress={() => {
-                props.navigation.navigate({
-                    routeName: 'CategoryMeals'
-                })
-            }}>
+            <TouchableOpacity
+                style={styles.gridItem}
+                onPress={()=> {
+                    props.navigation.navigate({routeName: 'CategoryMeals'})
+                }}
+            >
                 <View>
                     <Text>
                         {itemData.item.title}
@@ -25,10 +26,12 @@ export const CategoriesScreen = (props) => {
     );
 };
 CategoriesScreen.navigationOptions = {
-    headerTitle: 'Meal Categories',
-    headerStyle: colors.primaryColor,
+    title: 'Categories',
+    headerStyle: {
+        backgroundColor: colors.primaryColor
+    },
     headerTintColor: 'white'
-}
+};
 const styles = StyleSheet.create({
     gridItem: {
         flex: 1,
