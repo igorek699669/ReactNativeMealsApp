@@ -1,7 +1,6 @@
-import React from 'react'
-import {View, Text, Button} from 'react-native'
+import React from 'react';
+import {Button, Text, View} from 'react-native';
 import {CATEGORIES} from '../data/dummy-data';
-import {colors} from '../constants/colors';
 
 
 export const CategoryMealsScreen = (props) => {
@@ -23,9 +22,5 @@ CategoryMealsScreen.navigationOptions = (navigationData) => {
     const selectedCategory = CATEGORIES.find(cat=>cat.id ===catId)
     return {
         headerTitle: selectedCategory.title,
-        headerStyle: {
-            backgroundColor: colors.primaryColor
-        },
-        headerTintColor: 'white'
     }
 }

@@ -32,10 +32,6 @@ export const CategoriesScreen = (props) => {
 };
 CategoriesScreen.navigationOptions = {
     title: 'Categories',
-    headerStyle: {
-        backgroundColor: colors.primaryColor
-    },
-    headerTintColor: 'white'
 };
 const styles = StyleSheet.create({
     gridItem: {
