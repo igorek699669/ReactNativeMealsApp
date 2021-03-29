@@ -1,11 +1,19 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+import React from 'react';
+import {MealList} from '../components/MealList';
+import {MEALS} from '../data/dummy-data';
 
 
-export const FavoritesScreen = () => {
+export const FavoritesScreen = (props) => {
+    const favoriteMeals = MEALS.filter(meal => meal.id ==='m1' || meal.id ==='m2')
+
     return (
-        <View>
-            <Text></Text>
-        </View>
+        <MealList
+            listData={favoriteMeals}
+            navigation={props.navigation}
+        />
     )
+};
+
+FavoritesScreen.navigationOptions = {
+    headerTitle: 'Your favorites'
 }

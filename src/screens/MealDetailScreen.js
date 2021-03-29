@@ -12,7 +12,8 @@ export const MealDetailScreen = (props) => {
             <Text>{selectedMeal.title}</Text>
         </View>
     )
-}
+};
+
 MealDetailScreen.navigationOptions = (navigationData) => {
     const mealId = navigationData.navigation.getParam('mealId')
     const selectedMeal = MEALS.find(meal => meal.id ===mealId)
@@ -22,9 +23,10 @@ MealDetailScreen.navigationOptions = (navigationData) => {
             <AntDesign name="staro" size={24} color="#fff" />
         </View>
     }
-}
+};
+
 const styles = StyleSheet.create({
     rightIcon: {
         paddingRight: 20,
     }
-})
+});
