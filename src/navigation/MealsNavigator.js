@@ -8,6 +8,8 @@ import {createAppContainer} from 'react-navigation';
 import {colors} from '../constants/colors';
 import {FavoritesScreen} from '../screens/FavoritesScreen';
 import {Ionicons} from '@expo/vector-icons';
+import {createDrawerNavigator} from 'react-navigation-drawer'
+import {FiltersScreen} from '../screens/FiltersScreen';
 
 const defaultOptions = {
     headerStyle: {
@@ -55,5 +57,15 @@ const MealsFavTabNavigator = createBottomTabNavigator({
         activeTintColor: colors.accentColor
     }
 });
+const FiltersNavigator = createStackNavigator({
+    Filters: FiltersScreen
+},
+    {
+        defaultNavigationOptions: defaultOptions
+    });
+const MainNavigator = createDrawerNavigator({
+   MealsFavs: MealsFavTabNavigator,
+   Filters: FiltersNavigator
+});
 
-export default createAppContainer(MealsFavTabNavigator)
+export default createAppContainer(MainNavigator)

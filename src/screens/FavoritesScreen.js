@@ -1,6 +1,8 @@
 import React from 'react';
 import {MealList} from '../components/MealList';
 import {MEALS} from '../data/dummy-data';
+import {StyleSheet, View} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
 
 
 export const FavoritesScreen = (props) => {
@@ -14,6 +16,20 @@ export const FavoritesScreen = (props) => {
     )
 };
 
-FavoritesScreen.navigationOptions = {
-    headerTitle: 'Your favorites'
-}
+FavoritesScreen.navigationOptions = (navData) => {
+    return {
+        headerTitle: 'Favorites Screen',
+        headerLeft: <View
+            style={styles.burgerIcon}
+        >
+            <Ionicons onPress={()=> navData.navigation.toggleDrawer()} name="ios-menu" size={24} color="white"/>
+        </View>,
+    };
+};
+
+const styles = StyleSheet.create({
+    burgerIcon: {
+        paddingLeft: 20,
+    },
+});
+
