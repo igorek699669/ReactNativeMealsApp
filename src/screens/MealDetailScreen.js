@@ -1,7 +1,9 @@
-import React from 'react'
+import React , {useEffect, useCallback} from 'react'
 import {View,Image, Text, StyleSheet, ScrollView} from 'react-native'
 import {MEALS} from '../data/dummy-data';
 import { AntDesign } from '@expo/vector-icons';
+import {useSelector, useDispatch} from 'react-redux';
+import {toggleFavorite} from '../store/reducers/meals';
 
 const ListItem = (props) => {
     return (
@@ -11,8 +13,21 @@ const ListItem = (props) => {
     )
 }
 export const MealDetailScreen = (props) => {
+    const {meals} = useSelector(state => state.meals)
     const mealId = props.navigation.getParam('mealId')
-    const selectedMeal = MEALS.find(meal => meal.id ===mealId)
+    const selectedMeal = meals.find(meal => meal.id ===mealId)
+    const dispatch = useDispatch()
+    const toggleFavoriteHandler = useCallback( () => {
+        dispatch(toggleFavorite(selectedMeal.id))
+    }, [dispatch, mealId])
+    useEffect(()=> {
+        props.navigation.setParams({
+            mealTitle: selectedMeal.title
+        })
+    }, [selectedMeal])
+    useEffect(()=> {
+       props.navigation.setParams({toggleFav: toggleFavoriteHandler})
+    }, [selectedMeal])
     return (
         <ScrollView>
             <Image source={{uri:selectedMeal.imageUrl}} style={styles.image}/>
@@ -41,12 +56,12 @@ export const MealDetailScreen = (props) => {
 };
 
 MealDetailScreen.navigationOptions = (navigationData) => {
-    const mealId = navigationData.navigation.getParam('mealId')
-    const selectedMeal = MEALS.find(meal => meal.id ===mealId)
+    const toggleFavorite = navigationData.navigation.getParam('toggleFav')
+    const mealTitle = navigationData.navigation.getParam('mealTitle')
     return {
-        headerTitle: selectedMeal.title,
+        headerTitle: mealTitle,
         headerRight: <View style={styles.rightIcon}>
-            <AntDesign name="staro" size={24} color="#fff" />
+            <AntDesign onPress={toggleFavorite} name="staro" size={24} color="#fff" />
         </View>
     }
 };

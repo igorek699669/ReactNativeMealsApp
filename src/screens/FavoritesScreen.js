@@ -1,12 +1,12 @@
 import React from 'react';
 import {MealList} from '../components/MealList';
-import {MEALS} from '../data/dummy-data';
 import {StyleSheet, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {useSelector} from 'react-redux';
 
 
 export const FavoritesScreen = (props) => {
-    const favoriteMeals = MEALS.filter(meal => meal.id ==='m1' || meal.id ==='m2')
+    const {favoriteMeals} = useSelector(state => state.meals)
 
     return (
         <MealList
