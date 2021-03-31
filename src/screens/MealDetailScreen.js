@@ -15,6 +15,8 @@ const ListItem = (props) => {
 export const MealDetailScreen = (props) => {
     const {meals} = useSelector(state => state.meals)
     const mealId = props.navigation.getParam('mealId')
+    const currentMealIsFavorite = useSelector(state => state.meals.favoriteMeals.some(meal => meal.id ===mealId))
+
     const selectedMeal = meals.find(meal => meal.id ===mealId)
     const dispatch = useDispatch()
     const toggleFavoriteHandler = useCallback( () => {
@@ -28,6 +30,9 @@ export const MealDetailScreen = (props) => {
     useEffect(()=> {
        props.navigation.setParams({toggleFav: toggleFavoriteHandler})
     }, [selectedMeal])
+    useEffect(()=> {
+        props.navigation.setParams({isFav: currentMealIsFavorite})
+    }, [currentMealIsFavorite])
     return (
         <ScrollView>
             <Image source={{uri:selectedMeal.imageUrl}} style={styles.image}/>
@@ -58,10 +63,11 @@ export const MealDetailScreen = (props) => {
 MealDetailScreen.navigationOptions = (navigationData) => {
     const toggleFavorite = navigationData.navigation.getParam('toggleFav')
     const mealTitle = navigationData.navigation.getParam('mealTitle')
+    const isFavorite = navigationData.navigation.getParam('isFav')
     return {
         headerTitle: mealTitle,
         headerRight: <View style={styles.rightIcon}>
-            <AntDesign onPress={toggleFavorite} name="staro" size={24} color="#fff" />
+            <AntDesign onPress={toggleFavorite} name={isFavorite? 'star': 'staro'} size={24} color="#fff" />
         </View>
     }
 };

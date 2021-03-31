@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {StyleSheet, Text, View, Switch} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {useDispatch} from 'react-redux';
+import {setFilters} from '../store/reducers/meals';
 
 const FilterSwitch = props => {
     return <View style={styles.filterContainer}>
@@ -10,6 +12,7 @@ const FilterSwitch = props => {
     </View>
 }
 export const FiltersScreen = (props) => {
+    const dispatch = useDispatch()
     const {navigation} = props;
     const [isGlutenFree, setIsGlutenFree] = useState(false)
     const [isLactoseFree, setIsLactoseFree] = useState(false)
@@ -22,8 +25,8 @@ export const FiltersScreen = (props) => {
             vegan: isVegan,
             vegetarian: isVegetarian,
         };
-        console.log(appliedFilters)
-    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
+        dispatch(setFilters(appliedFilters))
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch])
     useEffect(()=> {
         navigation.setParams({
             save: saveFilters

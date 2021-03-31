@@ -1,13 +1,19 @@
 import React from 'react';
 import {MealList} from '../components/MealList';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet,Text, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useSelector} from 'react-redux';
 
 
 export const FavoritesScreen = (props) => {
     const {favoriteMeals} = useSelector(state => state.meals)
-
+    if (favoriteMeals.length ===0 || !favoriteMeals){
+        return <View>
+            <Text>
+                No favorite meals found. Start adding some!
+            </Text>
+        </View>
+    }
     return (
         <MealList
             listData={favoriteMeals}

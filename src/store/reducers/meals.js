@@ -1,5 +1,6 @@
 import {MEALS} from '../../data/dummy-data';
 const TOGGLE_FAVORITE = 'meals/TOGGLE_FAVORITE';
+const SET_FILTERS = 'meals/SET_FILTERS';
 
 
 const initialState = {
@@ -9,6 +10,27 @@ const initialState = {
 }
 export const mealsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_FILTERS:
+            const appliedFilters = action.filters;
+            const filteredMeals = state.meals.filter(meal => {
+                if(appliedFilters.glutenFree && !meal.isGlutenFree){
+                    return false
+                }
+                if(appliedFilters.lactoseFree && !meal.isLactoseFree){
+                    return false
+                }
+                if(appliedFilters.vegetarian && !meal.isVegetarian){
+                    return false
+                }
+                if(appliedFilters.vegan && !meal.isVegan){
+                    return false
+                }
+                return true
+            })
+            return {
+                ...state,
+                filteredMeals: filteredMeals
+            }
         case TOGGLE_FAVORITE:
             const existingIndex = state.favoriteMeals.findIndex(meal => meal.id === action.mealId)
             if (existingIndex >= 0) {
@@ -37,5 +59,11 @@ export const toggleFavorite = (id) => {
     return {
         type: TOGGLE_FAVORITE,
         mealId: id
+    }
+}
+export const setFilters = filterSettings => {
+    return{
+        type: SET_FILTERS,
+        filters: filterSettings
     }
 }
